@@ -5,12 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AlamatPengiriman extends Model
+class Order extends Model
 {
-    protected $table = 'alamat_pengiriman';
+    protected $table = 'order';
     protected $fillable = [
-        'user_id',
-        'status',
+        'cart_id',
         'nama_penerima',
         'no_tlp',
         'alamat',
@@ -21,7 +20,7 @@ class AlamatPengiriman extends Model
         'kodepos',
     ];
 
-    public function user() {
-        return $this->belongsTo('App\User', 'user_id');
+    public function cart() {
+        return $this->belongsTo('App\Cart', 'cart_id');
     }
 }

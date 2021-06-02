@@ -1,5 +1,6 @@
 <?php
 
+namespace App\models;
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -12,12 +13,9 @@ class HomepageController extends Controller
 {
     public function index() {
         $itemproduk = Produk::orderBy('created_at', 'desc')->limit(6)->get();
-        $itempromo = ProdukPromo::orderBy('created_at', 'desc')->limit(6)->get();
-        $itemkategori = Kategori::orderBy('nama_kategori', 'asc')->limit(6)->get();
         $itemslide = Slideshow::get();
         $data = array('title' => 'Homepage',
             'itemproduk' => $itemproduk,
-            'itempromo' => $itempromo,
             'itemkategori' => $itemkategori,
             'itemslide' => $itemslide,
         );
@@ -38,9 +36,6 @@ class HomepageController extends Controller
         $itemproduk = Produk::orderBy('nama_produk', 'desc')
                             ->where('status', 'publish')
                             ->paginate(18);
-        $listkategori = Kategori::orderBy('nama_kategori', 'asc')
-                                ->where('status', 'publish')
-                                ->get();
         $data = array('title' => 'Produk',
                     'itemproduk' => $itemproduk,
                     'listkategori' => $listkategori);

@@ -50,6 +50,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
      Route::patch('kosongkan/{id}', 'CartController@kosongkan');
      // cart detail
      Route::resource('cartdetail', 'CartDetailController');
+     // alamat pengiriman
+     Route::resource('alamatpengiriman', 'AlamatPengirimanController');
+    // checkout
+    Route::get('checkout', 'CartController@checkout');
    });
 });
 
