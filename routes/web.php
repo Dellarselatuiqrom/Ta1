@@ -20,6 +20,11 @@ Route::get('/about', 'HomeController@about');
 Route::get('/kontak', 'HomeController@kontak');
 Route::group(['prefix' => 'admin'], function() {
     Route::get('/', 'DashboardController@index');
+    Route::resource('produk', 'ProdukController');
+    Route::resource('customer', 'CustomerController');
+    Route::resource('transaksi', 'TransaksiController');
+    Route::get('profil', 'UserController@index');
+    Route::get('setting', 'UserController@setting');
   });
 //Route::get('/', function () {
    // return view('welcome');
