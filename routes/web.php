@@ -37,7 +37,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
   // simpan image
   Route::post('image', 'ImageController@store');
   // hapus image by id
-  Route::delete('image/{id}', 'ImageController@destroy');
+  Route::delete('image/{id}', 'ImageController@destroy');Route::post('produkimage', 'ProdukController@uploadimage');
+   // hapus image produk
+   Route::delete('produkimage/{id}', 'ProdukController@deleteimage');
+   // slideshow
+   Route::resource('slideshow', 'SlideshowController');
 });
 
 Auth::routes();

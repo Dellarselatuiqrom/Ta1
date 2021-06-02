@@ -21,6 +21,10 @@ class Produk extends Model
     ];
 
     public function user() {
-        return $this->belongsTo('App\models\User', 'user_id');
+        return $this->belongsTo('App\Models\User', 'user_id');
+    }
+
+    public function images() {
+        return $this->hasMany('App\Models\ProdukImage', 'produk_id');
     }
 }
