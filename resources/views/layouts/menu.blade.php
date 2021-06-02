@@ -14,13 +14,16 @@
           <a class="nav-link" href="#">Produk</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ URL::to('kontak') }}">Kontak</a>
+          <a class="nav-link" href="#">Kategori</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ URL::to('about') }}">Tentang Kami</a>
+          <a class="nav-link" href="#">Kontak</a>
         </li>
         <li class="nav-item">
-        <a class="nav-link" href="{{ URL::to('login') }}">Login</a>
+          <a class="nav-link" href="#">Tentang Kami</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Login</a>
         </li>
       </ul>
     </div>

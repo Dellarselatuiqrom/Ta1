@@ -14,11 +14,15 @@
 Route::get('/', 'HomepageController@index');
 Route::get('/about', 'HomepageController@about');
 Route::get('/kontak', 'HomepageController@kontak');
+Route::get('/kategori', 'HomepageController@kategori');
+Route::get('/kategori/{slug}', 'HomepageController@produkperkategori');
 Route::get('/produk', 'HomepageController@produk');
-Route::get('/produk/{id}', 'HomepageController@produkdetail');
+Route::get('/produk/{slug}', 'HomepageController@produkdetail');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
   Route::get('/', 'DashboardController@index');
+  // route kategori
+  Route::resource('kategori', 'KategoriController');
   // route produk
   Route::resource('produk', 'ProdukController');
   // route customer
@@ -56,7 +60,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
     Route::get('checkout', 'CartController@checkout');
    });
 });
-
 Auth::routes();
 
 //Route::get('/home', 'HomepageController@index')->name('homepage');
