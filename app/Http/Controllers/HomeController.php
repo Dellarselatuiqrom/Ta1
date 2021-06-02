@@ -7,21 +7,22 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Create a new controller instance.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
-    public function index() {
-        $data = array('title' => 'Homepage');
-        return view('home.index', $data);
-    }
-    public function about() {
-        $data = array('title' => 'Tentang Kami');
-        return view('home.about', $data);
+    public function __construct()
+    {
+        $this->middleware('auth');
     }
 
-    public function kontak() {
-        $data = array('title' => 'Kontak Kami');
-        return view('home.kontak', $data);
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function index()
+    {
+        return view('home');
     }
 }
