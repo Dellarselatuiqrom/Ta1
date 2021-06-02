@@ -5,20 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AlamatPengiriman extends Model
+class Kategori extends Model
 {
-    protected $table = 'alamat_pengiriman';
+    protected $table = 'kategori';
     protected $fillable = [
-        'user_id',
+        'kode_kategori',
+        'nama_kategori',
+        'slug_kategori',
+        'deskripsi_kategori',
         'status',
-        'nama_penerima',
-        'no_tlp',
-        'alamat',
-        'provinsi',
-        'kota',
-        'kecamatan',
-        'kelurahan',
-        'kodepos',
+        'foto',
+        'user_id',
     ];
 
     public function user() {

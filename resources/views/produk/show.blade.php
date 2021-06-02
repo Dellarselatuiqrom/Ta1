@@ -18,25 +18,25 @@
               <tr>
                 <td>Kode Produk</td>
                 <td>
-                  {{ $itemproduk->kode_produk }}
+                    001
                 </td>
               </tr>
               <tr>
                 <td>Nama Produk</td>
                 <td>
-                {{ $itemproduk->nama_produk }}
+                Samsung Galaxy S21 5G
                 </td>
               </tr>
               <tr>
                 <td>Qty</td>
                 <td>
-                {{ $itemproduk->qty }} {{ $itemproduk->satuan }}
+                  100 pcs
                 </td>
               </tr>
               <tr>
                 <td>Harga</td>
                 <td>
-                  Rp. {{ number_format($itemproduk->harga, 2) }}
+                  Rp. 18.999.0000
                 </td>
               </tr>
             </table>
@@ -50,51 +50,31 @@
           <h3 class="card-title">Foto Produk</h3>
         </div>
         <div class="card-body">
-          <form action="{{ url('/admin/produkimage') }}" method="post" enctype="multipart/form-data" class="form-inline">
-            @csrf
-            <div class="form-group">
-              <input type="file" name="image" id="image">
-              <input type="hidden" name="produk_id" value={{ $itemproduk->id }}>
-            </div>
-            <div class="form-group">
-              <button class="btn btn-primary">Upload</button>
+          <form action="#">
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <input type="file" name="image" id="image">
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <button type="submit" class="btn btn-primary">Upload</button>
+                </div>
+              </div>
             </div>
           </form>
         </div>
         <div class="card-body">
           <div class="row">
-            <div class="col mb-2">
-              @if(count($errors) > 0)
-              @foreach($errors->all() as $error)
-                  <div class="alert alert-warning">{{ $error }}</div>
-              @endforeach
-              @endif
-              @if ($message = Session::get('error'))
-                  <div class="alert alert-warning">
-                      <p>{{ $message }}</p>
-                  </div>
-              @endif
-              @if ($message = Session::get('success'))
-                  <div class="alert alert-success">
-                      <p>{{ $message }}</p>
-                  </div>
-              @endif
-            </div>
-          </div>
-          <div class="row">
-            @foreach($itemproduk->images as $image)
             <div class="col-md-3 mb-2">
-              <img src="{{ \Storage::url($image->foto) }}" alt="image" class="img-thumbnail mb-2">
-              <form action="{{ url('/admin/produkimage/'.$image->id) }}" method="post" style="display:inline;">
-                @csrf
-                {{ method_field('delete') }}
-                <button type="submit" class="btn btn-sm btn-danger mb-2">
-                  Hapus
-                </button>
-              </form>
+              <img src="{{ asset('images/samsung-galaxy-s21-ultra-5g.jpg') }}" alt="image" class="img-thumbnail mb-2">
+              <button class="btn-sm btn-danger btn">
+                Delete
+              </button>
             </div>
-            @endforeach
 
+            </div>
           </div>
         </div>
       </div>

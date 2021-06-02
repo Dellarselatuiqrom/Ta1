@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,6 +12,6 @@ class ProdukImage extends Model
     ];
 
     public function produk() {
-        return $this->belongsTo('App\Produk','produk_id');
+        return $this->belongsTo('App\Model\Produk','produk_id');
     }
 }

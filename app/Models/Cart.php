@@ -27,7 +27,7 @@ class Cart extends Model
     }
 
     public function detail() {
-        return $this->hasMany('App\CartDetail', 'cart_id');
+        return $this->hasMany('App\Models\CartDetail', 'cart_id');
     }
 
     public function updatetotal($itemcart, $subtotal) {
