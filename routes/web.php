@@ -15,7 +15,7 @@ Route::get('/', 'HomepageController@index');
 Route::get('/about', 'HomepageController@about');
 Route::get('/kontak', 'HomepageController@kontak');
 Route::get('/produk', 'HomepageController@produk');
-Route::get('/produk/{slug}', 'HomepageController@produkdetail');
+Route::get('/produk/{id}', 'HomepageController@produkdetail');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
   Route::get('/', 'DashboardController@index');
@@ -42,8 +42,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
    Route::delete('produkimage/{id}', 'ProdukController@deleteimage');
    // slideshow
    Route::resource('slideshow', 'SlideshowController');
+   Route::resource('wishlist', 'WishlistController');
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomepageController@index')->name('home');
+//Route::get('/home', 'HomepageController@index')->name('homepage');
+Route::get('/home', function() {
+    return redirect('/admin');
+  });
