@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Produk;
 
 class ProdukController extends Controller
 {
@@ -13,8 +14,10 @@ class ProdukController extends Controller
      */
     public function index()
     {
-        $data = array('title' => 'Produk');
-        return view('produk.index', $data);
+        $itemproduk = Produk::orderBy('created_at', 'desc')->paginate(20);
+        $data = array('title' => 'Produk',
+                    'itemproduk' => $itemproduk);
+        return view('produk.index', $data)->with('no', ($request->input('page', 1) - 1) * 20);
     }
 
     /**
@@ -36,7 +39,23 @@ class ProdukController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'kode_produk' => 'required|unique:produk',
+            'nama_produk' => 'required',
+            'slug_produk' => 'required',
+            'deskripsi_produk' => 'required',
+            'qty' => 'required|numeric',
+            'satuan' => 'required',
+            'harga' => 'required|numeric'
+        ]);
+        $itemuser = $request->user();//ambil data user yang login
+        $slug = \Str::slug($request->slug_produk);//buat slug dari input slug produk
+        $inputan = $request->all();
+        $inputan['slug_produk'] = $slug;
+        $inputan['user_id'] = $itemuser->id;
+        $inputan['status'] = 'publish';
+        $itemproduk = Produk::create($inputan);
+        return redirect()->route('produk.index')->with('success', 'Data berhasil disimpan');
     }
 
     /**
@@ -59,7 +78,9 @@ class ProdukController extends Controller
      */
     public function edit($id)
     {
-        $data = array('title' => 'Form Edit Produk');
+        $itemproduk = Produk::findOrFail($id);
+        $data = array('title' => 'Form Edit Produk',
+                'itemproduk' => $itemproduk;
         return view('produk.edit', $data);
     }
 
@@ -72,9 +93,31 @@ class ProdukController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'kode_produk' => 'required|unique:produk,id,'.$id,
+            'nama_produk' => 'required',
+            'slug_produk' => 'required',
+            'deskripsi_produk' => 'required',
+            'qty' => 'required|numeric',
+            'satuan' => 'required',
+            'harga' => 'required|numeric'
+        ]);
+        $itemproduk = Produk::findOrFail($id);
+        // kalo ga ada error page not found 404
+        $slug = \Str::slug($request->slug_produk);//slug kita gunakan nanti pas buka produk
+        // kita validasi dulu, biar tidak ada slug yang sama
+        $validasislug = Produk::where('id', '!=', $id)//yang id-nya tidak sama dengan $id
+                                ->where('slug_produk', $slug)
+                                ->first();
+        if ($validasislug) {
+            return back()->with('error', 'Slug sudah ada, coba yang lain');
+        } else {
+            $inputan = $request->all();
+            $inputan['slug'] = $slug;
+            $itemproduk->update($inputan);
+            return redirect()->route('produk.index')->with('success', 'Data berhasil diupdate');
+        }
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -83,6 +126,12 @@ class ProdukController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $itemproduk = Produk::findOrFail($id);//cari berdasarkan id = $id,
+        // kalo ga ada error page not found 404
+        if ($itemproduk->delete()) {
+            return back()->with('success', 'Data berhasil dihapus');
+        } else {
+            return back()->with('error', 'Data gagal dihapus');
+        }
     }
 }

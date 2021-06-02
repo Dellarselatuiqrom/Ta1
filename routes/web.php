@@ -1,8 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomepageController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,24 +11,35 @@ use App\Http\Controllers\HomepageController;
 |
 */
 
+Route::get('/', 'HomepageController@index');
+Route::get('/about', 'HomepageController@about');
+Route::get('/kontak', 'HomepageController@kontak');
+Route::get('/produk', 'HomepageController@produk');
+Route::get('/produk/{slug}', 'HomepageController@produkdetail');
 
-Route::get('/', 'HomeController@index');
-Route::get('/about', 'HomeController@about');
-Route::get('/kontak', 'HomeController@kontak');
-Route::group(['prefix' => 'admin'], function() {
-    Route::get('/', 'DashboardController@index');
-    Route::resource('produk', 'ProdukController');
-    Route::resource('customer', 'CustomerController');
-    Route::resource('transaksi', 'TransaksiController');
-    Route::get('profil', 'UserController@index');
-    Route::get('setting', 'UserController@setting');
-    Route::get('laporan', 'LaporanController@index');
-    Route::get('proseslaporan', 'LaporanController@proses');
-  });
-//Route::get('/', function () {
-   // return view('welcome');
-//});
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
+  Route::get('/', 'DashboardController@index');
+  // route produk
+  Route::resource('produk', 'ProdukController');
+  // route customer
+  Route::resource('customer', 'CustomerController');
+  // route transaksi
+  Route::resource('transaksi', 'TransaksiController');
+  // profil
+  Route::get('profil', 'UserController@index');
+  // setting profil
+  Route::get('setting', 'UserController@setting');
+  // form laporan
+  Route::get('laporan', 'LaporanController@index');
+  // proses laporan
+  Route::get('proseslaporan', 'LaporanController@proses');
+  Route::get('image', 'ImageController@index');
+  // simpan image
+  Route::post('image', 'ImageController@store');
+  // hapus image by id
+  Route::delete('image/{id}', 'ImageController@destroy');
+});
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', 'HomepageController@index')->name('home');
