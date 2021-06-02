@@ -25,6 +25,8 @@ Route::group(['prefix' => 'admin'], function() {
     Route::resource('transaksi', 'TransaksiController');
     Route::get('profil', 'UserController@index');
     Route::get('setting', 'UserController@setting');
+    Route::get('laporan', 'LaporanController@index');
+    Route::get('proseslaporan', 'LaporanController@proses');
   });
 //Route::get('/', function () {
    // return view('welcome');
