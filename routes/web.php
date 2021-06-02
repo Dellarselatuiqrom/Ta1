@@ -43,6 +43,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
    // slideshow
    Route::resource('slideshow', 'SlideshowController');
    Route::resource('wishlist', 'WishlistController');
+   // shopping cart
+   Route::group(['middleware' => 'auth'], function() {
+     // cart
+     Route::resource('cart', 'CartController');
+     Route::patch('kosongkan/{id}', 'CartController@kosongkan');
+     // cart detail
+     Route::resource('cartdetail', 'CartDetailController');
+   });
 });
 
 Auth::routes();
