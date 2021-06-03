@@ -1,14 +1,13 @@
 <?php
 
-namespace App\models;
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Produk;
 use App\Models\Kategori;
 use App\Models\Slideshow;
 use App\Models\ProdukPromo;
 use App\Models\Wishlist;
+use Illuminate\Http\Request;
 use Auth;
 
 class HomepageController extends Controller

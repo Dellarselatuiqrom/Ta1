@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class AlamatPengiriman extends Model
 {
-    protected $table = 'alamat_pengiriman';
+    protected $table = 'alamat_pengirimans';
     protected $fillable = [
         'user_id',
         'status',

@@ -13,7 +13,7 @@ class CreateSlideshowsTable extends Migration
      */
     public function up()
     {
-        Schema::create('slideshow', function (Blueprint $table) {
+        Schema::create('slideshows', function (Blueprint $table) {
             $table->increments('id');
             $table->string('foto');
             $table->string('caption_title')->nullable();

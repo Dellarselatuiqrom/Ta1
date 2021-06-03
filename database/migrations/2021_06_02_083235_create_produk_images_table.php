@@ -17,7 +17,7 @@ class CreateProdukImagesTable extends Migration
             $table->increments('id');
             $table->integer('produk_id')->unsigned();
             $table->string('foto')->nullable();
-            $table->foreign('produk_id')->references('id')->on('produk');
+            $table->foreign('produk_id')->references('id')->on('produks');
             $table->timestamps();
         });
     }

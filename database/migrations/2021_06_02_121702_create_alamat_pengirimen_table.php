@@ -13,7 +13,7 @@ class CreateAlamatPengirimenTable extends Migration
      */
     public function up()
     {
-        Schema::create('alamat_pengiriman', function (Blueprint $table) {
+        Schema::create('alamat_pengirimans', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->string('status');//utama atau tidak

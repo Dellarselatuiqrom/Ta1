@@ -13,7 +13,7 @@ class CreateOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::create('order', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('cart_id')->unsigned();
             $table->string('nama_penerima');
@@ -24,7 +24,7 @@ class CreateOrdersTable extends Migration
             $table->string('kecamatan');
             $table->string('kelurahan');
             $table->string('kodepos');
-            $table->foreign('cart_id')->references('id')->on('cart');
+            $table->foreign('cart_id')->references('id')->on('carts');
             $table->timestamps();
         });
     }

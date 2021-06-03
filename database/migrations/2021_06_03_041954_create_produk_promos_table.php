@@ -13,7 +13,7 @@ class CreateProdukPromosTable extends Migration
      */
     public function up()
     {
-        Schema::create('produk_promo', function (Blueprint $table) {
+        Schema::create('produk_promos', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('produk_id')->unsigned();
             $table->decimal('harga_awal', 16,2)->default(0);
@@ -22,7 +22,7 @@ class CreateProdukPromosTable extends Migration
             $table->decimal('diskon_nominal', 16,2)->default(0);
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('produk_id')->references('id')->on('produk');
+            $table->foreign('produk_id')->references('id')->on('produks');
             $table->timestamps();
         });
     }

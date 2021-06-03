@@ -13,7 +13,7 @@ class CreateCartDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('cart_detail', function (Blueprint $table) {
+        Schema::create('cart_details', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('produk_id')->unsigned();
             $table->integer('cart_id')->unsigned();
@@ -21,8 +21,8 @@ class CreateCartDetailsTable extends Migration
             $table->double('harga', 12, 2)->default(0);
             $table->double('diskon', 12, 2)->default(0);
             $table->double('subtotal', 12, 2)->default(0);
-            $table->foreign('cart_id')->references('id')->on('cart');
-            $table->foreign('produk_id')->references('id')->on('produk');
+            $table->foreign('cart_id')->references('id')->on('carts');
+            $table->foreign('produk_id')->references('id')->on('produks');
             $table->timestamps();
         });
     }
