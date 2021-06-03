@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,13 +17,18 @@
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::get('/', 'HomepageController@index');
-Route::get('/about', 'HomepageController@about');
-Route::get('/kontak', 'HomepageController@kontak');
-Route::get('/kategori', 'HomepageController@kategori');
-Route::get('/kategori/{slug}', 'HomepageController@kategoribyslug');
-Route::get('/produk', 'HomepageController@produk');
-Route::get('/produk/{id}', 'HomepageController@produkdetail');
+Route::get('/', 'HomepageController@index')->name('homeindex');
+Route::get('/about', 'HomepageController@about')->name('homeabout');
+Route::get('/kontak', 'HomepageController@kontak')->name('homekontak');
+Route::get('/kategori', 'HomepageController@kategori')->name('homekategori');
+Route::get('/kategori/{slug}', 'HomepageController@kategoribyslug')->name('kategorislug');
+Route::get('/produk', 'HomepageController@produk')->name('homeproduk');
+Route::get('/produk/{id}', 'HomepageController@produkdetail')->name('homeproductdetail');
+
+Route::post('login', 'Auth\AuthController@login');
+Route::get('login' , 'Auth\AuthController@showLoginForm');
+Route::get('/login' , 'Auth\AuthController@showLoginForm');
+
 
 // route dashboard
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
@@ -81,7 +89,6 @@ Auth::routes();
 // Route::get('/home', 'HomeController@index')->name('home');
 // ubah route ke home menjadi admin
 Route::get('/home', function() {
-  return redirect('/admin');
-});
-
+    return redirect('/admin')->name('home');
+  });
 });
