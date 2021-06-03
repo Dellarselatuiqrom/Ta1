@@ -8,7 +8,7 @@
         <div class="card-header">
           <h4 class="card-title">Produk</h4>
           <div class="card-tools">
-            <a href="{{ route('produk.create') }}" class="btn btn-sm btn-primary">
+            <a href="{{ route('promo.create') }}" class="btn btn-sm btn-primary">
               Baru
             </a>
           </div>
@@ -45,47 +45,44 @@
                   <th width="50px">No</th>
                   <th>Gambar</th>
                   <th>Kode</th>
+                  <th>Harga Awal</th>
                   <th>Nama</th>
-                  <th>Jumlah</th>
-                  <th>Harga</th>
-                  <th>Status</th>
+                  <th>Diskon</th>
+                  <th>Harga Akhir</th>
                   <th></th>
                 </tr>
               </thead>
               <tbody>
-                @foreach($itemproduk as $produk)
+                @foreach($itempromo as $promo)
                 <tr>
                   <td>
                   {{ ++$no }}
                   </td>
                   <td>
-                    @if($produk->foto != null)
-                    <img src="{{ \Storage::url($produk->foto) }}" alt="{{ $produk->nama_produk }}" width='150px' class="img-thumbnail">
+                    @if($promo->produk->foto != null)
+                    <img src="{{ \Storage::url($promo->produk->foto) }}" alt="{{ $promo->produk->nama_produk }}" width='150px' class="img-thumbnail">
                     @endif
                   </td>
                   <td>
-                  {{ $produk->kode_produk }}
+                  {{ $promo->produk->kode_produk }}
                   </td>
                   <td>
-                  {{ $produk->nama_produk }}
+                  {{ $promo->produk->nama_produk }}
                   </td>
                   <td>
-                  {{ $produk->qty }} {{ $produk->satuan }}
+                  {{ number_format($promo->harga_awal, 2) }}
                   </td>
                   <td>
-                  {{ number_format($produk->harga, 2) }}
+                  {{ number_format($promo->diskon_nominal, 2) }} ({{ $promo->diskon_persen }}%)
                   </td>
                   <td>
-                  {{ $produk->status }}
+                  {{ number_format($promo->harga_akhir, 2) }}
                   </td>
                   <td>
-                    <a href="{{ route('produk.show', $produk->id) }}" class="btn btn-sm btn-primary mr-2 mb-2">
-                      Detail
-                    </a>
-                    <a href="{{ route('produk.edit', $produk->id) }}" class="btn btn-sm btn-primary mr-2 mb-2">
+                    <a href="{{ route('promo.edit', $promo->id) }}" class="btn btn-sm btn-primary mr-2 mb-2">
                       Edit
                     </a>
-                    <form action="{{ route('produk.destroy', $produk->id) }}" method="post" style="display:inline;">
+                    <form action="{{ route('promo.destroy', $promo->id) }}" method="post" style="display:inline;">
                       @csrf
                       {{ method_field('delete') }}
                       <button type="submit" class="btn btn-sm btn-danger mb-2">
@@ -97,7 +94,7 @@
                 @endforeach
               </tbody>
             </table>
-            {{ $itemproduk->links() }}
+            {{ $itempromo->links() }}
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -27,5 +27,13 @@ class Produk extends Model
 
     public function user() {
         return $this->belongsTo('App\Models\User', 'user_id');
+    }
+
+    public function images() {
+        return $this->hasMany('App\Models\ProdukImage', 'produk_id');
+    }
+
+    public function promo() {
+        return $this->hasOne('App\Models\ProdukPromo', 'produk_id');
     }
 }

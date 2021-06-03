@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Produk;
+use App\Models\Kategori;
 use App\Models\Slideshow;
+use App\Models\ProdukPromo;
 use App\Models\Wishlist;
 use Auth;
 
@@ -13,9 +15,12 @@ class HomepageController extends Controller
 {
     public function index() {
         $itemproduk = Produk::orderBy('created_at', 'desc')->limit(6)->get();
+        $itempromo = ProdukPromo::orderBy('created_at', 'desc')->limit(6)->get();
+        $itemkategori = Kategori::orderBy('nama_kategori', 'asc')->limit(6)->get();
         $itemslide = Slideshow::get();
         $data = array('title' => 'Homepage',
             'itemproduk' => $itemproduk,
+            'itempromo' => $itempromo,
             'itemkategori' => $itemkategori,
             'itemslide' => $itemslide,
         );
@@ -27,20 +32,51 @@ class HomepageController extends Controller
         return view('homepage.about', $data);
     }
 
-    public function kategori() {
-        $data = array('title' => 'Kategori Produk');
-        return view('homepage.kategori', $data);
-    }
-
     public function kontak() {
         $data = array('title' => 'Kontak Kami');
         return view('homepage.kontak', $data);
+    }
+
+    public function kategori() {
+        $itemkategori = Kategori::orderBy('nama_kategori', 'asc')->limit(6)->get();
+        $itemproduk = Produk::orderBy('created_at', 'desc')->limit(6)->get();
+        $data = array('title' => 'Kategori Produk',
+                    'itemkategori' => $itemkategori,
+                    'itemproduk' => $itemproduk);
+        return view('homepage.kategori', $data);
+    }
+
+    public function kategoribyslug(Request $request, $slug) {
+        $itemproduk = Produk::orderBy('nama_produk', 'desc')
+                            ->where('status', 'publish')
+                            ->whereHas('kategori', function($q) use ($slug) {
+                                $q->where('slug_kategori', $slug);
+                            })
+                            ->paginate(18);
+        $listkategori = Kategori::orderBy('nama_kategori', 'asc')
+                                ->where('status', 'publish')
+                                ->get();
+        $itemkategori = Kategori::where('slug_kategori', $slug)
+                                ->where('status', 'publish')
+                                ->first();
+        if ($itemkategori) {
+            $data = array('title' => $itemkategori->nama_kategori,
+                        'itemproduk' => $itemproduk,
+                        'listkategori' => $listkategori,
+                        'itemkategori' => $itemkategori);
+            return view('homepage.produk', $data)->with('no', ($request->input('page') - 1) * 18);
+        } else {
+            return abort('404');
+        }
     }
 
     public function produk(Request $request) {
         $itemproduk = Produk::orderBy('nama_produk', 'desc')
                             ->where('status', 'publish')
                             ->paginate(18);
+        $listkategori = Kategori::orderBy('nama_kategori', 'asc')
+                                ->where('status', 'publish')
+                                ->get();
         $data = array('title' => 'Produk',
                     'itemproduk' => $itemproduk,
                     'listkategori' => $listkategori);
