@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\AlamatPengiriman;
+use App\Models\AlamatPengiriman;
 
 class AlamatPengirimanController extends Controller
 {
