@@ -1,7 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class ProdukImage extends Model
@@ -12,6 +13,6 @@ class ProdukImage extends Model
     ];
 
     public function produk() {
-        return $this->belongsTo('App\Produk','produk_id');
+        return $this->belongsTo('App\Models\Produk','produk_id');
     }
 }

@@ -149,8 +149,7 @@
     <div class="col">
       <h5 class="text-center">Pomato Shop</h5>
       <p>
-        Toko adalah demo membangun toko online menggunakan laravel framework. Di dalam demo ini terdapat user bisa menginput data kategori, produk dan transaksi.
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic laborum aliquam dolorum sequi nulla maiores quos incidunt veritatis numquam suscipit. Cumque dolore rem obcaecati. Eos quod ad non veritatis assumenda.
+      <p>Sebuah toko smartphone yang menyediakan smartphone kepada pelanggan, dapat dibeli secara online, dikirim sesuai alamat yang tertera, memiliki jaminan kepuasan dan garansi disetiap smartphone yang telah dibeli disini. Happy Shoping Slurr !!!!. </p>
       </p>
       <p class="text-center">
         <a href="" class="btn btn-outline-secondary">

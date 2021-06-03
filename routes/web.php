@@ -25,13 +25,11 @@ Route::get('/kategori/{slug}', 'HomepageController@kategoribyslug')->name('kateg
 Route::get('/produk', 'HomepageController@produk')->name('homeproduk');
 Route::get('/produk/{id}', 'HomepageController@produkdetail')->name('homeproductdetail');
 
-Route::post('login', 'Auth\AuthController@login');
-Route::get('login' , 'Auth\AuthController@showLoginForm');
-Route::get('/login' , 'Auth\AuthController@showLoginForm');
+//Route::get('/login' , 'Auth\loginController@showLoginForm');
 
 
 // route dashboard
-Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
+Route::group(['prefix' => 'admin'], function() {
   Route::get('/', 'DashboardController@index');
   // route kategori
   Route::resource('kategori', 'KategoriController');
@@ -86,7 +84,7 @@ Route::get('checkout', 'CartController@checkout');
 
 Auth::routes();
 
-// Route::get('/home', 'HomeController@index')->name('home');
+ //Route::get('/home', 'HomeController@index')->name('home');
 // ubah route ke home menjadi admin
 Route::get('/home', function() {
     return redirect('/admin')->name('home');
