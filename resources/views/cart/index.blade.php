@@ -131,7 +131,7 @@
           <div class="row">
             <div class="col">
             <a href="{{ URL::to('checkout') }}" class="btn btn-primary btn-block">
-            Checkout
+                Checkout
             </a>
             </div>
             <div class="col">

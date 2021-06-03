@@ -22,18 +22,18 @@ class Produk extends Model
     ];
 
     public function kategori() {
-        return $this->belongsTo('App\Kategori', 'kategori_id');
+        return $this->belongsTo('App\Models\Kategori', 'kategori_id');
     }
 
     public function user() {
-        return $this->belongsTo('App\User', 'user_id');
+        return $this->belongsTo('App\Models\User', 'user_id');
     }
 
     public function images() {
-        return $this->hasMany('App\ProdukImage', 'produk_id');
+        return $this->hasMany('App\Models\ProdukImage', 'produk_id');
     }
 
     public function promo() {
-        return $this->hasOne('App\ProdukPromo', 'produk_id');
+        return $this->hasOne('App\Models\ProdukPromo', 'produk_id');
     }
 }

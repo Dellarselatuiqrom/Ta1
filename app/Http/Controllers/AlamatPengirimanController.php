@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AlamatPengiriman;
 use Illuminate\Http\Request;
+use App\AlamatPengiriman;
 
 class AlamatPengirimanController extends Controller
 {
