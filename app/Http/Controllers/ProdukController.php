@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Produk;
+use App\Models\Kategori;;
 
 class ProdukController extends Controller
 {
@@ -12,7 +13,7 @@ class ProdukController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $itemproduk = Produk::orderBy('created_at', 'desc')->paginate(20);
         $data = array('title' => 'Produk',
@@ -27,7 +28,9 @@ class ProdukController extends Controller
      */
     public function create()
     {
-        $data = array('title' => 'Form Produk Baru');
+        $itemkategori = Kategori::orderBy('nama_kategori', 'asc')->get();
+        $data = array('title' => 'Form Produk Baru',
+                    'itemkategori' => $itemkategori);
         return view('produk.create', $data);
     }
 
@@ -44,6 +47,7 @@ class ProdukController extends Controller
             'nama_produk' => 'required',
             'slug_produk' => 'required',
             'deskripsi_produk' => 'required',
+            'kategori_id' => 'required',
             'qty' => 'required|numeric',
             'satuan' => 'required',
             'harga' => 'required|numeric'
@@ -57,7 +61,6 @@ class ProdukController extends Controller
         $itemproduk = Produk::create($inputan);
         return redirect()->route('produk.index')->with('success', 'Data berhasil disimpan');
     }
-
     /**
      * Display the specified resource.
      *
@@ -80,8 +83,10 @@ class ProdukController extends Controller
     public function edit($id)
     {
         $itemproduk = Produk::findOrFail($id);
+        $itemkategori = Kategori::orderBy('nama_kategori', 'asc')->get();
         $data = array('title' => 'Form Edit Produk',
-                'itemproduk' => $itemproduk;
+                'itemproduk' => $itemproduk,
+                'itemkategori' => $itemkategori);
         return view('produk.edit', $data);
     }
 
@@ -99,6 +104,7 @@ class ProdukController extends Controller
             'nama_produk' => 'required',
             'slug_produk' => 'required',
             'deskripsi_produk' => 'required',
+            'kategori_id' => 'required',
             'qty' => 'required|numeric',
             'satuan' => 'required',
             'harga' => 'required|numeric'
@@ -135,6 +141,7 @@ class ProdukController extends Controller
             return back()->with('error', 'Data gagal dihapus');
         }
     }
+
     public function uploadimage(Request $request) {
         $this->validate($request, [
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -164,11 +171,11 @@ class ProdukController extends Controller
 
     public function deleteimage(Request $request, $id) {
         // ambil data produk image by id
-        $itemprodukimage = \App\Models\ProdukImage::findOrFail($id);
+        $itemprodukimage = \App\ProdukImage::findOrFail($id);
         // ambil produk by produk_id kalau tidak ada maka error 404
         $itemproduk = Produk::findOrFail($itemprodukimage->produk_id);
         // kita cari dulu database berdasarkan url gambar
-        $itemgambar = \App\Models\Image::where('url', $itemprodukimage->foto)->first();
+        $itemgambar = \App\Image::where('url', $itemprodukimage->foto)->first();
         // hapus imagenya
         if ($itemgambar) {
             \Storage::delete($itemgambar->url);
@@ -177,7 +184,7 @@ class ProdukController extends Controller
         // baru update hapus produk image
         $itemprodukimage->delete();
         //ambil 1 buah produk image buat diupdate jadi banner produk
-        $itemsisaprodukimage = \App\Models\ProdukImage::where('produk_id', $itemproduk->id)->first();
+        $itemsisaprodukimage = \App\ProdukImage::where('produk_id', $itemproduk->id)->first();
         if ($itemsisaprodukimage) {
             $itemproduk->update(['foto' => $itemsisaprodukimage->foto]);
         } else {
