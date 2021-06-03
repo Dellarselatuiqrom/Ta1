@@ -38,7 +38,72 @@
     </div>
   </div>
   <!-- end carousel -->
-
+  <!-- kategori produk -->
+  <div class="row mt-4">
+    <div class="col col-md-12 col-sm-12 mb-4">
+      <h2 class="text-center">Kategori Produk</h2>
+    </div>
+    @foreach($itemkategori as $kategori)
+    <!-- kategori pertama -->
+    <div class="col-md-4">
+      <div class="card mb-4 shadow-sm">
+        <a href="{{ URL::to('kategori/'.$kategori->slug_kategori) }}">
+          @if($kategori->foto != null)
+          <img src="{{ \Storage::url($kategori->foto) }}" alt="{{ $kategori->nama_kategori }}" class="card-img-top">
+          @else
+          <img src="{{ asset('images/bag.jpg') }}" alt="{{ $kategori->nama_kategori }}" class="card-img-top">
+          @endif
+        </a>
+        <div class="card-body">
+          <a href="{{ URL::to('kategori/'.$kategori->slug_kategori) }}" class="text-decoration-none">
+            <p class="card-text">{{ $kategori->nama_kategori }}</p>
+          </a>
+        </div>
+      </div>
+    </div>
+    @endforeach
+  <!-- end kategori produk -->
+  <!-- produk Promo-->
+  <div class="row mt-4">
+    <div class="col col-md-12 col-sm-12 mb-4">
+      <h2 class="text-center">Promo</h2>
+    </div>
+    @foreach($itempromo as $promo)
+    <!-- produk pertama -->
+    <div class="col-md-4">
+      <div class="card mb-4 shadow-sm">
+        <a href="{{ URL::to('produk/'.$promo->produk->slug_produk) }}">
+          @if($promo->produk->foto != null)
+          <img src="{{\Storage::url($promo->produk->foto) }}" alt="{{ $promo->produk->nama_produk }}" class="card-img-top">
+          @else
+          <img src="{{asset('images/bag.jpg') }}" alt="{{ $promo->produk->nama_produk }}" class="card-img-top">
+          @endif
+        </a>
+        <div class="card-body">
+          <a href="{{ URL::to('produk/'.$promo->produk->slug_produk) }}" class="text-decoration-none">
+            <p class="card-text">
+              {{ $promo->produk->nama_produk }}
+            </p>
+          </a>
+          <div class="row mt-4">
+            <div class="col">
+              <button class="btn btn-light">
+                <i class="far fa-heart"></i>
+              </button>
+            </div>
+            <div class="col-auto">
+              <p>
+                <del>Rp. {{ number_format($promo->harga_awal, 2) }}</del>
+                <br />
+                Rp. {{ number_format($promo->harga_akhir, 2) }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    @endforeach
+  <!-- end produk promo -->
   <!-- produk Terbaru-->
   <div class="row mt-4">
     <div class="col col-md-12 col-sm-12 mb-4">
@@ -82,11 +147,7 @@
   <hr>
   <div class="row mt-4">
     <div class="col">
-      <h5 class="text-center">Toko Online Menggunakan Laravel</h5>
-      <p>
-        Toko adalah demo membangun toko online menggunakan laravel framework. Di dalam demo ini terdapat user bisa menginput data kategori, produk dan transaksi.
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic laborum aliquam dolorum sequi nulla maiores quos incidunt veritatis numquam suscipit. Cumque dolore rem obcaecati. Eos quod ad non veritatis assumenda.
-      </p>
+      <h5 class="text-center">Pomato Shop</h5>
       <p>
         Toko adalah demo membangun toko online menggunakan laravel framework. Di dalam demo ini terdapat user bisa menginput data kategori, produk dan transaksi.
         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic laborum aliquam dolorum sequi nulla maiores quos incidunt veritatis numquam suscipit. Cumque dolore rem obcaecati. Eos quod ad non veritatis assumenda.

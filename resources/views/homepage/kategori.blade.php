@@ -4,50 +4,48 @@
   <!-- kategori produk -->
   <div class="row mt-4">
     <div class="col col-md-12 col-sm-12 mb-4">
-      <h2 class="text-center">Kategori Produk :</h2>
+      <h2 class="text-center">Kategori Produk</h2>
     </div>
+    @foreach($itemkategori as $kategori)
     <!-- kategori pertama -->
     <div class="col-md-4">
       <div class="card mb-4 shadow-sm">
-        <a href="{{ URL::to('kategori/satu') }}">
-          <img src="{{asset('images/android.jpg') }}" alt="foto kategori" class="card-img-top">
+        <a href="{{ URL::to('kategori/'.$kategori->slug_kategori) }}">
+          @if($kategori->foto != null)
+          <img src="{{ \Storage::url($kategori->foto) }}" alt="{{ $kategori->nama_kategori }}" class="card-img-top">
+          @else
+          <img src="{{asset('images/bag.jpg') }}" alt="{{ $kategori->nama_kategori }}" class="card-img-top">
+          @endif
         </a>
         <div class="card-body">
-          <a href="{{ URL::to('kategori/satu') }}" class="text-decoration-none">
-            <p class="card-text">Android</p>
+          <a href="{{ URL::to('kategori/'.$kategori->slug_kategori) }}" class="text-decoration-none">
+            <p class="card-text">{{ $kategori->nama_kategori }}</p>
           </a>
         </div>
       </div>
     </div>
-    <!-- kategori kedua -->
-    <div class="col-md-4">
-      <div class="card mb-4 shadow-sm">
-        <a href="{{ URL::to('kategori/dua') }}">
-          <img src="{{asset('images/iphone.jpg') }}" alt="foto kategori" class="card-img-top">
-        </a>
-        <div class="card-body">
-          <a href="{{ URL::to('kategori/dua') }}" class="text-decoration-none">
-            <p class="card-text">Iphone</p>
-          </a>
-        </div>
-      </div>
-    </div>
+    @endforeach
   <!-- end kategori produk -->
   <!-- produk Terbaru-->
   <div class="row mt-4">
     <div class="col col-md-12 col-sm-12 mb-4">
-      <h2 class="text-center">Produk Terbaru :</h2>
+      <h2 class="text-center">Terbaru</h2>
     </div>
+    @foreach($itemproduk as $produk)
     <!-- produk pertama -->
     <div class="col-md-4">
       <div class="card mb-4 shadow-sm">
-        <a href="{{ URL::to('produk/satu') }}">
-          <img src="{{asset('images/samsung-galaxy-s21-ultra-5g.jpg') }}" alt="foto produk" class="card-img-top">
+        <a href="{{ URL::to('produk/'.$produk->slug_produk) }}">
+          @if($produk->foto != null)
+          <img src="{{ \Storage::url($produk->foto) }}" alt="{{ $produk->nama_produk }}" class="card-img-top">
+          @else
+          <img src="{{ asset('images/bag.jpg') }}" alt="{{ $produk->nama_produk }}" class="card-img-top">
+          @endif
         </a>
         <div class="card-body">
-          <a href="{{ URL::to('produk/satu') }}" class="text-decoration-none">
+          <a href="{{ URL::to('produk/'.$produk->slug_produk ) }}" class="text-decoration-none">
             <p class="card-text">
-              Samsung Galaxy S21 5G
+              {{ $produk->nama_produk }}
             </p>
           </a>
           <div class="row mt-4">
@@ -58,40 +56,13 @@
             </div>
             <div class="col-auto">
               <p>
-                Rp. 18.999.000,00
+                Rp. {{ number_format($produk->harga, 2) }}
               </p>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- produk kedua -->
-    <div class="col-md-4">
-      <div class="card mb-4 shadow-sm">
-        <a href="{{ URL::to('produk/dua') }}">
-          <img src="{{asset('images/apple-iphone-12-pro-max-1.jpg') }}" alt="foto produk" class="card-img-top">
-        </a>
-        <div class="card-body">
-          <a href="{{ URL::to('produk/dua') }}" class="text-decoration-none">
-            <p class="card-text">
-              Iphone 12 Pro Max
-            </p>
-          </a>
-          <div class="row mt-4">
-            <div class="col">
-              <button class="btn btn-light">
-                <i class="far fa-heart"></i>
-              </button>
-            </div>
-            <div class="col-auto">
-              <p>
-                Rp. 30.000.000,00
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  <!-- end produk terbaru -->
+    @endforeach
 </div>
 @endsection

@@ -15,7 +15,6 @@ class CreateProduksTable extends Migration
     {
         Schema::create('produk', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('kategori_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->string('kode_produk');
             $table->string('nama_produk');
@@ -27,7 +26,6 @@ class CreateProduksTable extends Migration
             $table->double('harga', 12, 2)->default(0);
             $table->string('status');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('kategori_id')->references('id')->on('kategori');
             $table->timestamps();
         });
     }
